@@ -1,0 +1,1 @@
+This is a simple notepad for windows written in C# with framework windows forms.
