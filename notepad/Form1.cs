@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -28,6 +29,7 @@ namespace notepad
             {
                 if (saveFileDialog1.ShowDialog() == DialogResult.Cancel) return;
                 filename = saveFileDialog1.FileName;
+                this.Text = "Notepad - " + filename;
             }
             try
             {
@@ -43,6 +45,7 @@ namespace notepad
         {
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel) return;
             filename = openFileDialog1.FileName;
+            this.Text = "Notepad - " + filename;
             string text = System.IO.File.ReadAllText(filename);
             textbox.Text = text;
         }
@@ -65,12 +68,22 @@ namespace notepad
 
         private void copy(object sender, EventArgs e)
         {
-            Clipboard.SetText(textbox.SelectedText);
+            textbox.Copy();
         }
 
         private void paste(object sender, EventArgs e)
         {
-            textbox.Text.Insert(textbox.SelectionStart, Clipboard.GetText());
+            textbox.Paste();
+        }
+
+        private void cut(object sender, EventArgs e)
+        {
+            textbox.Cut();
+        }
+
+        private void selectAll(object sender, EventArgs e)
+        {
+            textbox.SelectAll();
         }
     }
 }
